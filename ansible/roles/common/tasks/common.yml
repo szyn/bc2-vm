@@ -1,0 +1,88 @@
+- name: install git
+  apt:
+    name: git
+    state: present
+    update_cache: yes
+
+- name: install dependency packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - build-essential
+    - libtool
+    - autotools-dev
+    - automake
+    - pkg-config
+    - libssl-dev
+    - libevent-dev
+    - bsdmainutils
+
+- name: instal Boost
+  apt:
+    name: libboost-all-dev
+    state: present
+
+- name: add apt_repository for BerkeleyDB
+  apt_repository:
+    repo: 'ppa:bitcoin/bitcoin'
+    state: present
+
+- name: install BerkeleyDB 4.8
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - libdb4.8-dev
+    - libdb4.8++-dev
+
+- name: clone bc2 repository
+  git:
+    repo: https://github.com/dgarage/bc2.git
+    dest: /vagrant/bc2
+
+- name: add dotnetdev repository file
+  copy:
+    src: dotnetdev.list
+    dest: /etc/apt/sources.list.d/dotnetdev.list
+    owner: root
+    group: root
+
+- name: add apt_key for dotnetdev
+  apt_key:
+    id: 417A0893
+    keyserver: "hkp://keyserver.ubuntu.com:80"
+
+- name: install package "dotnetdev"
+  apt:
+    name: dotnet-dev-1.0.0-preview2-003156
+    update_cache: yes
+
+- name: instal curl
+  apt:
+    name: curl
+    state: present
+
+- name: add nodesource
+  shell: curl -Ls {{ nodesource }} | sudo -E bash -
+
+- name: instal packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - nodejs
+    - mongodb
+
+- name: create symlink from nodejs to node
+  file:
+    src: /usr/bin/nodejs
+    dest: /usr/bin/node
+    state: link
+
+- name: install mocha
+  npm:
+    name: mocha
+    global: yes
