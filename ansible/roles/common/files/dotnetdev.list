@@ -1,1 +1,1 @@
-deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main
+deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main
