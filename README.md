@@ -1,11 +1,11 @@
 # BC2-VM
 
-### Overview
+## Overview
 `bc2-vm` is local development environment for Blockchain Core Camp.
 
 ## Features
 
-- Based image is Ubuntu 14.04.3 LTS
+- Base image is Ubuntu 14.04.3 LTS
 - Provisioning with ansible
 
 ### Requirements
