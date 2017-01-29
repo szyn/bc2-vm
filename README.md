@@ -5,7 +5,7 @@
 
 ## Features
 
-- Base image is Ubuntu 14.04.3 LTS
+- Base image is Ubuntu 16.04.1 LTS
 - Provisioning with ansible
 
 ### Requirements
